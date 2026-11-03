@@ -1,0 +1,44 @@
+// MQ2 Gas Leakage Detection System
+
+int gasSensor = A0;
+int led = 7;
+int buzzer = 8;
+
+int gasValue = 0;
+int threshold = 10;
+
+void setup()
+{
+  pinMode(led, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+
+  Serial.begin(9600);
+
+  Serial.println("MQ2 Gas Detection System");
+  Serial.println("System Started...");
+}
+
+void loop()
+{
+  gasValue = analogRead(gasSensor);
+
+  Serial.print("Gas Sensor Value: ");
+  Serial.println(gasValue);
+
+  if (gasValue > threshold)
+  {
+    digitalWrite(led, HIGH);
+    digitalWrite(buzzer, HIGH);
+
+    Serial.println("WARNING! GAS DETECTED");
+  }
+  else
+  {
+    digitalWrite(led, LOW);
+    digitalWrite(buzzer, LOW);
+
+    Serial.println("Normal Air Condition");
+  }
+
+  delay(1000);
+}

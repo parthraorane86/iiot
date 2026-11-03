@@ -1,0 +1,35 @@
+
+int pirSensor = 2;
+int sensorValue = LOW;
+int previousValue = LOW;
+
+void setup()
+{
+  pinMode(pirSensor, INPUT);
+
+  Serial.begin(115200);
+
+  Serial.println("PIR Motion Detection System");
+  Serial.println("System Started...");
+
+  delay(60000); // Allow sensor to stabilize
+}
+
+void loop()
+{
+  sensorValue = digitalRead(pirSensor);
+
+  if (sensorValue == HIGH && previousValue == LOW)
+  {
+    Serial.println("Motion Detected!");
+  }
+
+  if (sensorValue == LOW && previousValue == HIGH)
+  {
+    Serial.println("No Motion Detected");
+  }
+
+  previousValue = sensorValue;
+
+  delay(1);
+}
